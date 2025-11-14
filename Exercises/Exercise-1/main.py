@@ -1,6 +1,7 @@
 import requests
 import os
 import os.path
+from zipfile import ZipFile
 
 download_uris = [
     "https://divvy-tripdata.s3.amazonaws.com/Divvy_Trips_2018_Q4.zip",
@@ -13,7 +14,7 @@ download_uris = [
 ]
 
 
-def main():
+def main() :
     # Création du dossier downloads s'il n'existe pas
     path = "downloads"
     if os.path.exists(path) :
@@ -29,6 +30,18 @@ def main():
         with open(path + "/" + name, "wb") as f:
             f.write(response.content)
 
+    # Unzip de tous les fichiers
+    list = os.listdir(path)
+    for file in list :
+        fullpath = path + "/" + file
+        try :
+            with ZipFile(fullpath, 'r') as zip_object:
+                zip_object.extractall(path = path)
+        except Exception as e :
+            pass
+        finally :
+            # Suppression du zip dans la foulée
+            os.remove(fullpath)
 
 if __name__ == "__main__":
     main()
