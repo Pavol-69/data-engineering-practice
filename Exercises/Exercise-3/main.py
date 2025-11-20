@@ -1,10 +1,10 @@
 import boto3
 
+def main() :
 
-def main():
-    # your code here
+    # Exercice impossible sans compte AWS, qui demande une carte bleue...
     pass
+    
 
-
-if __name__ == "__main__":
+if __name__ == "__main__" :
     main()
